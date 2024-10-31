@@ -8,9 +8,6 @@ const NavBar = () => {
   return (
     <AppBar component="nav">
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={() => navigate("/")}>
-            <img src="#" alt="Logo" style={{ width: '4rem', height: '4rem' }} />
-          </IconButton>
           <Title />
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
