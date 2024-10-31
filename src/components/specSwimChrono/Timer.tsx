@@ -1,9 +1,11 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
+import DisplayTime from "./DisplayTime";
+import Title from "../common/CustomTypo";
 
 
 export default function Timer() {
-  const [startTime, setStartTime]= useState<number | undefined>()
+  
   const [currentTime, setCurrentTime] = useState<number>(0)
   const [min, setMin] = useState<number>(0)
   const [sec, setSec] = useState<number>(0)
@@ -16,7 +18,7 @@ export default function Timer() {
 
   useEffect(() => {
     if (isRunning) {
-      startTimeRef.current = Date.now() - currentTime;
+      startTimeRef.current = Date.now() - currentTime; // stores the start time in memory, deducting any time that has already elapsed 
       timerRef.current = setInterval(() => {
         setCurrentTime(Date.now() - (startTimeRef.current || Date.now()));
       }, 10);
@@ -32,7 +34,6 @@ export default function Timer() {
 
   const handleClearTime = () => {
     clearInterval(timerRef.current);
-    setStartTime(undefined);
     setCurrentTime(0);
     setMin(0);
     setSec(0);
@@ -59,8 +60,8 @@ export default function Timer() {
   }
   return(
     <Box>
-      <h1> Timer</h1>
-      <h4>{`${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}.${milli.toString().padStart(3, '0')}`}</h4>
+      <Title colorText="rgb(35, 103, 239)" text="Timer"/>
+      <DisplayTime min={min} sec={sec} milli={milli}/>
       <Button onClick={handleStartTime}>{text}</Button>
       <Button>Lap</Button>
       <Button onClick={handleClearTime}>Clear</Button>

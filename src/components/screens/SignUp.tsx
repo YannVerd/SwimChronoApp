@@ -17,7 +17,7 @@ import AppTheme from '../../styles/AppTheme'
 import { GoogleIcon, FacebookIcon } from '../icons/CustomIcons';
 import ColorModeSelect from '../../styles/ColorModeSelect';
 import { useNavigate } from 'react-router-dom';
-import Title from '../common/CustomTypo';
+import HeaderTitle from '../fixed/HeaderTitle';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -127,7 +127,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
-          <Title colorText='rgb(35, 103, 239)'/>
+          <HeaderTitle colorText='rgb(35, 103, 239)'/>
           <Typography
             component="h1"
             variant="h4"
