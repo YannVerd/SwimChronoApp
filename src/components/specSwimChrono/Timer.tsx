@@ -4,17 +4,15 @@ import DisplayTime from "./DisplayTime";
 import Title from "../common/CustomTypo";
 
 interface ILap{
-  id: number, sec:number,
-  min:number,
-  milli: number
+  id: number, 
+  time:number,
+  interval:number,
+  
 }
 
 export default function Timer() {
   
   const [currentTime, setCurrentTime] = useState<number>(0)
-  const [min, setMin] = useState<number>(0)
-  const [sec, setSec] = useState<number>(0)
-  const [milli, setMilli] = useState<number>(0)
   const [text, setText] = useState<string>('Start')
   const [isRunning, setIsRunning] = useState<boolean>(false)
   const [laps, setLaps] = useState<ILap[]>([])
@@ -42,36 +40,16 @@ export default function Timer() {
   const handleClearTime = () => {
     clearInterval(timerRef.current);
     setCurrentTime(0);
-    setMin(0);
-    setSec(0);
-    setMilli(0);
+    setText('Start')
     setLaps([]);
     idLapRef.current = 0;
-  }
-
-  useEffect(()=>{
-    if (currentTime > 0) {
-      convertToDisplayFormat();
-    }
-  }, [currentTime])
-
-  const convertToDisplayFormat = () =>{
-    if (currentTime === undefined) return;
-    setMilli(currentTime!%1000);
-    if(currentTime! >= 1000){
-      setSec(Math.floor(currentTime! / 1000));
-      if(sec! >= 60){
-        setMin(Math.floor(sec! / 60));
-        setSec(sec!%60);
-      }
-    }
   }
 
   const handleLaps = () => {
     idLapRef.current++
     setLaps((oldLaps) => {
       let newLaps = [...oldLaps]
-      newLaps.push({id: idLapRef.current, sec: sec, min: min, milli: milli})
+      newLaps.push({id: idLapRef.current, time: currentTime, interval: oldLaps.length === 0 ? 0 : currentTime - oldLaps[oldLaps.length -1].time })
       return newLaps
     })
   }
@@ -80,7 +58,7 @@ export default function Timer() {
     <Container>
       <Box>
         <Title colorText="rgb(35, 103, 239)" text="Timer"/>
-        <DisplayTime min={min} sec={sec} milli={milli}/>
+        <DisplayTime time={currentTime}/>
         <Button onClick={handleStartTime}>{text}</Button>
         <Button onClick={handleLaps}>Lap</Button>
         <Button onClick={handleClearTime}>Clear</Button>
@@ -102,7 +80,8 @@ export default function Timer() {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell>{lap.id}</TableCell>
-                  <TableCell><DisplayTime min={lap.min} sec={lap.sec} milli={lap.milli}/></TableCell>
+                  <TableCell><DisplayTime time={lap.interval} component='p'/></TableCell>
+                  <TableCell><DisplayTime time={lap.time} component='p'/></TableCell>
                 </TableRow>
               )
             })
