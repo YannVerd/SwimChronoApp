@@ -1,15 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
-interface ITime{
-  startTime: Date | undefined,
-  currentTime: number | undefined,
-  timer : ReturnType<typeof setTimeout> | undefined,
-  min: number | undefined,
-  sec: number | undefined,
-  milli: number| undefined,
-  text: string
-}
 
 export default function Timer() {
   const [startTime, setStartTime]= useState<number | undefined>()
