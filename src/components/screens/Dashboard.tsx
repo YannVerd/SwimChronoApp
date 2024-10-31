@@ -7,7 +7,7 @@ export default function Dashboard () {
         <>
             <NavBar />
             <Box sx={{marginTop:'4rem', width:'98%', marginX: 'auto' }}>
-                <h1>I'm the DashBoard</h1>
+                <h1>Bienvenue !</h1>
                 <Timer />
             </Box>
             

@@ -7,9 +7,9 @@ const NavBar = () => {
   const navigate = useNavigate();
   return (
     <AppBar component="nav">
-        <Toolbar>
-          <Title />
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Toolbar sx={{display: 'flex' , justifyContent: 'space-between'}}>
+          <Title colorText="withe"/>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'space-between', width: '20rem'}}>
             {navItems.map((item) => (
               <Button key={item.name} sx={{ color: '#fff' }} onClick={()=>{navigate(`${item.link}`)}}>
                 {item.name}

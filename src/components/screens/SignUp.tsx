@@ -127,7 +127,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
-          <Title />
+          <Title colorText='rgb(35, 103, 239)'/>
           <Typography
             component="h1"
             variant="h4"
