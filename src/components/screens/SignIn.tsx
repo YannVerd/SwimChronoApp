@@ -88,6 +88,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       email: data.get('email'),
       password: data.get('password'),
     });
+    navigate('/dashboard')
   };
 
   const validateInputs = () => {

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AppBar, Box, Button, Toolbar, IconButton } from "@mui/material";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import Title from "../common/CustomTypo";
 
 const NavBar = () => {
