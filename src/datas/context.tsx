@@ -1,13 +1,18 @@
 import { createContext, useState } from "react";
 
 export interface IUserContext {
-    user: any | null; 
-    setUser: React.Dispatch<React.SetStateAction<any | null>>;
+    user: IUser | null; 
+    setUser: React.Dispatch<React.SetStateAction<IUser| null>>;
   }
 
 export interface IDataContext {
     data: any | null;  
     setData: React.Dispatch<React.SetStateAction<any | null>>;
+}
+export interface IUser{
+  id: string;
+  username: string;
+  email: string;
 }
 
 export const UserContext = createContext<IUserContext | null>(null);

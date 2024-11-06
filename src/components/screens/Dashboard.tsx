@@ -1,11 +1,12 @@
 import { Box } from "@mui/material"
 import NavBar from "../fixed/NavBar"
 import Timer from "../specSwimChrono/Timer"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { IUserContext, UserContext } from "../../datas/context"
 
 export default function Dashboard () {
     const { user } = useContext<IUserContext | any>(UserContext)
+
     return (
         <>
             <NavBar />

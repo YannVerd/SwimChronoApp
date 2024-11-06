@@ -96,16 +96,17 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       email: data.get('email'),
       password: data.get('password'),
     })
-      .then(res => {
+      .then(async res => {
         if(!res.ok) {
-          return res.json().then((error) => {throw new Error(error.message || 'Login Failed' )})
+          const error = await res.json();
+          throw new Error(error.message || 'Login Failed');
         }
         return res.json()
       })
       .then(res => {
-        console.log(res)
-          navigate('/dashboard')
-        
+        setUser(res.user)
+        navigate('/dashboard')
+
       })
       .catch(err => {
         console.error('login failed :', err.message)
