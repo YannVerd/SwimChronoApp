@@ -19,6 +19,8 @@ import { GoogleIcon, FacebookIcon } from '../icons/CustomIcons';
 import AppTheme from '../../styles/AppTheme';
 import ColorModeSelect from '../../styles/ColorModeSelect';
 import HeaderTitle from '../fixed/HeaderTitle';
+import { endpoints, requestAPI } from '../../datas/api';
+import { UserContext, IUserContext } from '../../datas/context';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -63,6 +65,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn(props: { disableCustomTheme?: boolean }) {
+  const { setUser } = React.useContext<IUserContext | any>(UserContext)
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -79,16 +82,35 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (emailError || passwordError) {
-      event.preventDefault();
       return;
     }
+    
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
-    navigate('/dashboard')
+    requestAPI(endpoints.login, {
+      email: data.get('email'),
+      password: data.get('password'),
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then((error) => {throw new Error(error.message || 'Login Failed' )})
+        }
+        return res.json()
+      })
+      .then(res => {
+        console.log(res)
+          navigate('/dashboard')
+        
+      })
+      .catch(err => {
+        console.error('login failed :', err.message)
+      })
+    
   };
 
   const validateInputs = () => {

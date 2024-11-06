@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 
-interface IUserContext {
+export interface IUserContext {
     user: any | null; 
     setUser: React.Dispatch<React.SetStateAction<any | null>>;
   }
 
-interface IDataContext {
+export interface IDataContext {
     data: any | null;  
     setData: React.Dispatch<React.SetStateAction<any | null>>;
 }

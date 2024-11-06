@@ -2,7 +2,7 @@
 
 export const endpoints = {
     login: "api/user/login",
-    register: "api/user/regisrer",
+    register: "api/user/register",
     profil: "api/user/profil/{id}",
     helloworld: "api/",
 }
@@ -17,7 +17,7 @@ export const endpoints = {
  * @returns result of request (will probably change to update the context)
  */
 export  function requestAPI(endpoint: string, datas?: Object, id?: string){
-    let url = `http://localhost:3006/${endpoint}`;
+    let url = `http://localhost:8080/${endpoint}`;
     let options: RequestInit = {
         method: "GET",
         headers: {
