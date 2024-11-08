@@ -1,10 +1,7 @@
-
-
 export const endpoints = {
     login: "api/user/login",
     register: "api/user/register",
-    profil: "api/user/profil/{id}",
-    helloworld: "api/",
+    auth: "api/user/auth",
 }
 
 
@@ -18,15 +15,22 @@ export const endpoints = {
  */
 export  function requestAPI(endpoint: string, datas?: Object, id?: string){
     let url = `http://localhost:8080/${endpoint}`;
+    let token = localStorage.getItem('sctoken')
     let options: RequestInit = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
           },
     }
-    
+    if(token){
+        token = JSON.parse(token)
+        options.headers = {
+            ...options.headers,
+            Authorization: `Bearer ${token}`
+        }
+    }
     if(id){
-        url.replace('{id}', id);
+        url = url.replace('{id}', id);
     }
 
     if(datas){

@@ -73,6 +73,29 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
 
+  const testAuthorization = () => {
+    requestAPI(endpoints.auth)
+        .then(async (res)=>{
+            if(res.ok){
+                res.json()
+            }else{
+              const error = await res.json();
+              throw new Error(error.message || 'Authentication failed');
+            }
+        })
+        .then((data)=>{
+          setUser(data)
+          navigate('/dashboard')
+        })
+        .catch((err) => {
+          console.error('Authentication failed', err.message)
+        })
+  }
+
+  React.useEffect(()=>{
+    testAuthorization()
+  }, [])
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -104,6 +127,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
         return res.json()
       })
       .then(res => {
+        localStorage.setItem('sctoken', JSON.stringify(res.token))
         setUser(res.user)
         navigate('/dashboard')
 
