@@ -15,9 +15,10 @@ export const endpoints = {
  */
 export  function requestAPI(endpoint: string, datas?: Object, id?: string){
     let url = `http://localhost:8080/${endpoint}`;
-    let token = localStorage.getItem('sctoken')
+    let token = localStorage.getItem('xsrfToken')
     let options: RequestInit = {
         method: "GET",
+        credentials: 'include', // enable cookie
         headers: {
             "Content-Type": "application/json",
           },

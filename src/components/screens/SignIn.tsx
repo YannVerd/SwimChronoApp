@@ -127,7 +127,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
         return res.json()
       })
       .then(res => {
-        localStorage.setItem('sctoken', JSON.stringify(res.token))
+        localStorage.setItem('xsrfToken', JSON.stringify(res.xsrfToken))
         setUser(res.user)
         navigate('/dashboard')
 
