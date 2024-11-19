@@ -1,4 +1,4 @@
-import { Button, IconButton, Snackbar, SnackbarCloseReason } from "@mui/material";
+import { Alert, AlertColor, IconButton, Snackbar, SnackbarCloseReason } from "@mui/material";
 import React from "react";
 import { createContext, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
@@ -24,7 +24,16 @@ export interface IUser{
 
 export interface ISnack{
   open: boolean;
-  message: string
+  message: string;
+  severity: string
+}
+
+export const ALERTCOLOR = {
+  success: "success",
+  info: "info",
+  warning: "warning",
+  error: "error"
+
 }
 
 export const UserContext = createContext<IUserContext | null>(null);
@@ -44,7 +53,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const DataProvider = ({children}: {children: React.ReactNode})=>{
     const [data, setData]= useState<any | null>(null);
-    const [snack, setSnack] = useState<ISnack>({open: false, message: ""})
+    const [snack, setSnack] = useState<ISnack>({open: false, message: "", severity: ALERTCOLOR.error})
 
     const handleClose = (
       event: React.SyntheticEvent | Event,
@@ -58,15 +67,13 @@ export const DataProvider = ({children}: {children: React.ReactNode})=>{
         ...oldValue,
         open:false,
         message: "",
+        severity: ALERTCOLOR.error
 
       }));
     };
   
     const action = (
       <React.Fragment>
-        <Button color="secondary" size="small" onClick={handleClose}>
-          UNDO
-        </Button>
         <IconButton
           size="small"
           aria-label="close"
@@ -83,10 +90,18 @@ export const DataProvider = ({children}: {children: React.ReactNode})=>{
             open={snack.open}
             autoHideDuration={4000}
             onClose={handleClose}
-            message={snack.message}
             action={action}
             
-      />
+          >
+            <Alert
+              onClose={handleClose}
+              severity={snack.severity as AlertColor}
+              variant="filled"
+              sx={{ width: '100%' }}
+            >
+              {snack.message}
+            </Alert>
+            </Snackbar>
             {children}
         </DatasContext.Provider>
     )
