@@ -34,7 +34,7 @@ const NavBar = () => {
                       throw new Error(error.message || 'Authentication failed');
                     }
                   })
-                  .then((res) => {
+                  .then(() => {
                   localStorage.removeItem('xsrfToken')
                   navigate('/')
                 })

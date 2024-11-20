@@ -56,6 +56,7 @@ export const DataProvider = ({children}: {children: React.ReactNode})=>{
     const [snack, setSnack] = useState<ISnack>({open: false, message: "", severity: ALERTCOLOR.error})
 
     const handleClose = (
+      // @ts-ignore comment don't work with next line
       event: React.SyntheticEvent | Event,
       reason?: SnackbarCloseReason,
     ) => {
