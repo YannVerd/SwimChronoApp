@@ -20,7 +20,8 @@ import AppTheme from '../../styles/AppTheme';
 import ColorModeSelect from '../../styles/ColorModeSelect';
 import HeaderTitle from '../fixed/HeaderTitle';
 import { endpoints, requestAPI } from '../../datas/api';
-import { UserContext, IUserContext } from '../../datas/context';
+import { UserContext, IUserContext, DatasContext, IDataContext, ISnack} from '../../datas/context';
+
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -66,6 +67,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const { setUser } = React.useContext<IUserContext | any>(UserContext)
+  const { setSnack } = React.useContext<IDataContext | any>(DatasContext)
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -89,6 +91,14 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
         })
         .catch((err) => {
           console.error('Authentication failed', err.message)
+          setSnack((old: ISnack)=>(
+            {
+              ...old,
+              open: true,
+              message: err.message
+            }
+          )
+          )
         })
   }
 
@@ -134,6 +144,13 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       })
       .catch(err => {
         console.error('login failed :', err.message)
+        setSnack((old: ISnack)=>({
+          ...old,
+          open: true,
+          message: err.message
+        }))
+        navigate('/')
+
       })
     
   };
