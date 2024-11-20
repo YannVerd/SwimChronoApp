@@ -2,6 +2,7 @@ export const endpoints = {
     login: "api/user/login",
     register: "api/user/register",
     auth: "api/user/auth",
+    logout: "api/user/logout"
 }
 
 
@@ -38,7 +39,11 @@ export  function requestAPI(endpoint: string, datas?: Object, id?: string){
     if(datas){
         options.method = 'POST';
         options.body = JSON.stringify(datas);
-    }   
+    } 
+    
+    if(endpoint === endpoints.logout){
+        options.cache = 'no-store';
+    }
     
     return fetch(url, options)
 }

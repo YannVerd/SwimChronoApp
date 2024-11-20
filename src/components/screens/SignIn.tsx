@@ -20,7 +20,7 @@ import AppTheme from '../../styles/AppTheme';
 import ColorModeSelect from '../../styles/ColorModeSelect';
 import HeaderTitle from '../fixed/HeaderTitle';
 import { endpoints, requestAPI } from '../../datas/api';
-import { UserContext, IUserContext, DatasContext, IDataContext, ISnack } from '../../datas/context';
+import { UserContext, IUserContext, DatasContext, IDataContext, ISnack} from '../../datas/context';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -149,6 +149,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           open: true,
           message: err.message
         }))
+        navigate('/')
 
       })
     
